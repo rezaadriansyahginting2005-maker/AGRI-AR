@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#173f2b">
+  <title>AgriAR — AR Alat Pertanian</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/html5-qrcode" defer></script>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#"><span class="brand-mark">🌱</span><span>Agri<span>AR</span></span></a>
+  <span class="top-label">Media Pembelajaran AR Pertanian</span>
+</header>
+<main class="container">
+  <section class="hero">
+    <p class="eyebrow">AUGMENTED REALITY • PERTANIAN</p>
+    <h1>Belajar alat pertanian<br><span>lebih nyata dengan AR.</span></h1>
+    <p>Pindai QR Code untuk mengenali cangkul, arit, sekop, garu, dan knapsack sprayer, lalu pelajari fungsi, cara penggunaan, serta model 3D/AR.</p>
+  </section>
+
+  <section class="panel">
+    <div class="section-heading">
+      <div><p class="eyebrow">LANGKAH 01</p><h2>Pindai QR Code</h2></div>
+      <span class="status" id="scan-status">Kamera belum aktif</span>
+    </div>
+    <div id="reader"></div>
+    <div class="actions">
+      <button class="button primary" id="start-scan">Buka kamera</button>
+      <button class="button secondary" id="stop-scan" disabled>Hentikan</button>
+    </div>
+    <p class="hint">Arahkan kamera ke QR Code AgriAR. Pastikan izin kamera diberikan.</p>
+    <div class="manual">
+      <label for="manual-code">Atau uji dengan memasukkan kode</label>
+      <div class="manual-row">
+        <input id="manual-code" placeholder="Contoh: CANGKUL001" autocomplete="off">
+        <button class="button dark" id="find-code">Cari</button>
+      </div>
+    </div>
+    <p id="scan-message" class="message" role="status"></p>
+  </section>
+
+  <section class="panel" id="result-panel">
+    <div class="section-heading"><div><p class="eyebrow">LANGKAH 02</p><h2>Informasi dan model AR</h2></div><span class="result-tag" id="result-tag">Menunggu scan</span></div>
+    <div id="empty-state" class="empty">
+      <span class="empty-icon">▦</span><h3>Belum ada alat dipilih</h3>
+      <p>Hasil scan akan menampilkan informasi dan model 3D di sini.</p>
+    </div>
+    <div id="tool-details" hidden>
+      <div class="tool-title"><div><p class="eyebrow">ALAT TERIDENTIFIKASI</p><h3 id="tool-name"></h3></div><span class="tool-code" id="tool-code"></span></div>
+      <model-viewer id="model-viewer" camera-controls touch-action="pan-y" ar ar-modes="scene-viewer webxr quick-look"
+        ar-scale="auto" shadow-intensity="1" environment-image="neutral" alt="Model 3D alat pertanian">
+        <div slot="poster" class="poster">Pilih alat untuk memuat model 3D</div>
+        <button slot="ar-button" class="ar-button">⌖ Lihat di lingkungan saya (AR)</button>
+      </model-viewer>
+      <p class="model-help">Putar model dengan menggeser layar. Gunakan tombol AR untuk melihat objek di lingkungan nyata. Fitur AR bergantung pada dukungan perangkat dan browser.</p>
+      <div class="info-grid">
+        <div><span class="info-label">Fungsi alat</span><p id="tool-function"></p></div>
+        <div><span class="info-label">Cara penggunaan</span><p id="tool-usage"></p></div>
+      </div>
+      <p id="model-warning" class="model-warning"></p>
+    </div>
+  </section>
+
+  <section class="catalog-section">
+    <div class="section-heading"><div><p class="eyebrow">KATALOG 5 ALAT</p><h2>Pilih alat untuk mencoba</h2></div></div>
+    <div id="catalog-grid" class="catalog-grid"></div>
+  </section>
+</main>
+<footer>AgriAR · Projek pengenalan alat pertanian berbasis Augmented Reality</footer>
+</body>
+</html>
